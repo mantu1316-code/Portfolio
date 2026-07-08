@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantu Kumar | Projects</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght=400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#0a0f1c',
+                            card: '#111827',
+                            green: '#00ff9d',
+                            blue: '#00d4ff',
+                            purple: '#bd00ff',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0f1c; }
+        ::-webkit-scrollbar-thumb { background: #00ff9d; border-radius: 10px; }
+
+        .glass {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #00ff9d, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .terminal-window { box-shadow: 0 0 30px rgba(0, 255, 157, 0.15); }
+        .terminal-body { height: 300px; overflow-y: auto; }
+        .terminal-body::-webkit-scrollbar { width: 4px; }
+        .terminal-body::-webkit-scrollbar-thumb { background: #374151; }
+
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff9d;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .terminal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            z-index: 10;
+        }
+        .terminal-close-btn:hover {
+            background: rgba(255, 0, 0, 0.5);
+            transform: scale(1.1);
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0, 255, 157, 0.08);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .floating-shapes span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 255, 157, 0.05);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        .floating-shapes span:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; width: 60px; height: 60px; }
+        .floating-shapes span:nth-child(2) { top: 30%; right: 8%; animation-delay: 2s; width: 40px; height: 40px; }
+        .floating-shapes span:nth-child(3) { bottom: 20%; left: 10%; animation-delay: 4s; width: 80px; height: 80px; }
+        .floating-shapes span:nth-child(4) { top: 60%; right: 5%; animation-delay: 1s; width: 30px; height: 30px; }
+        .floating-shapes span:nth-child(5) { bottom: 10%; right: 20%; animation-delay: 3s; width: 50px; height: 50px; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-80px) rotate(180deg); opacity: 0.8; }
+        }
+
+        .page-wrapper {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+        }
+        .page-wrapper .content {
+            flex: 1;
+        }
+        .page-wrapper footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body class="bg-cyber-bg text-gray-200 font-sans overflow-x-hidden">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="fixed w-full z-50 glass top-0">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 md:py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-bold font-mono text-cyber-green">&lt;PortFolio /&gt;</a>
+            
+            <ul class="hidden md:flex space-x-6 lg:space-x-8 text-sm font-medium">
+                <li><a href="index.html" class="nav-link hover:text-cyber-green transition">Home</a></li>
+                <li><a href="index.html#about" class="nav-link hover:text-cyber-green transition">About</a></li>
+                <li><a href="education.html" class="nav-link hover:text-cyber-green transition">Education & Certs</a></li>
+                <li><a href="projects.html" class="nav-link text-cyber-green hover:text-cyber-green transition">Projects</a></li>
+                <li><a href="index.html#contact" class="nav-link hover:text-cyber-green transition">Contact</a></li>
+            </ul>
+
+            <button onclick="toggleTerminal()" class="hidden md:flex items-center space-x-2 px-4 py-2 bg-cyber-green/10 border border-cyber-green/30 rounded-lg text-cyber-green hover:bg-cyber-green hover:text-cyber-bg transition font-mono text-sm">
+                <i class="fas fa-terminal"></i>
+                <span>Terminal</span>
+            </button>
+
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-cyber-green">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden glass px-6 pb-4">
+            <ul class="flex flex-col space-y-3 text-center">
+                <li><a href="index.html" class="block hover:text-cyber-green py-1">Home</a></li>
+                <li><a href="index.html#about" class="block hover:text-cyber-green py-1">About</a></li>
+                <li><a href="education.html" class="block hover:text-cyber-green py-1">Education & Certs</a></li>
+                <li><a href="projects.html" class="block text-cyber-green hover:text-cyber-green py-1">Projects</a></li>
+                <li><a href="index.html#contact" class="block hover:text-cyber-green py-1">Contact</a></li>
+                <li><button onclick="toggleTerminal()" class="w-full py-2 bg-cyber-green/10 border border-cyber-green/30 rounded-lg text-cyber-green font-mono text-sm">Open Terminal</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== PROJECTS SECTION ==================== -->
+    <div class="page-wrapper pt-20">
+        <section class="relative overflow-hidden flex-1">
+            <div class="floating-shapes">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="max-w-6xl mx-auto relative z-10 px-4 sm:px-6 py-6 md:py-8">
+                <!-- Header -->
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2">
+                        My Featured <span class="gradient-text">Projects</span>
+                    </h1>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">A deployment showcase of live web intelligence and assessment utilities</p>
+                </div>
+
+                <!-- Projects Grid -->
+                <div id="projectsContainer" class="grid md:grid-cols-2 gap-6 md:gap-6">
+                    
+                    <!-- 1. HireIQ ATS Project -->
+                    <div class="glass p-6 rounded-2xl project-card border border-gray-800 hover:border-cyber-green/30 transition" data-aos="fade-up">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-xl font-bold text-white">HireIQ ATS</h3>
+                                    <span class="text-xs text-gray-500 font-mono">#0001</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mt-2.5 leading-relaxed">An intelligent Applicant Tracking System designed to evaluate, parse, and score resumes against structural job descriptions to optimize recruitment workflows.</p>
+                                <a href="https://hireiq-ats-ns1.vercel.app/" target="_blank" class="text-cyber-blue text-xs hover:underline mt-3 inline-block font-mono">
+                                    <i class="fas fa-external-link-alt mr-1"></i>https://hireiq-ats-ns1.vercel.app/
+                                </a>
+                                <div class="flex flex-wrap gap-1.5 mt-4">
+                                    <span class="px-2.5 py-0.5 bg-cyber-green/10 text-cyber-green text-xs rounded-full font-mono">Tailwind CSS</span>
+                                    <span class="px-2.5 py-0.5 bg-cyber-green/10 text-cyber-green text-xs rounded-full font-mono">JavaScript</span>
+                                    <span class="px-2.5 py-0.5 bg-cyber-green/10 text-cyber-green text-xs rounded-full font-mono">ATS Parser</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. DiabeCare AI Project -->
+                    <div class="glass p-6 rounded-2xl project-card border border-gray-800 hover:border-cyber-purple/30 transition" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-xl font-bold text-white">DiabeCare AI Portal</h3>
+                                    <span class="text-xs text-gray-500 font-mono">#0002</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mt-2.5 leading-relaxed">An end-to-end clinical screening tool powered by a Random Forest Classifier to process vitals, render real-time risk indicators, and deliver automated medical precautions.</p>
+                                <a href="https://diabe-care-ai-rncp.vercel.app/" target="_blank" class="text-cyber-blue text-xs hover:underline mt-3 inline-block font-mono">
+                                    <i class="fas fa-external-link-alt mr-1"></i>https://diabe-care-ai-rncp.vercel.app/
+                                </a>
+                                <div class="flex flex-wrap gap-1.5 mt-4">
+                                    <span class="px-2.5 py-0.5 bg-cyber-purple/10 text-cyber-blue text-xs rounded-full font-mono">Machine Learning</span>
+                                    <span class="px-2.5 py-0.5 bg-cyber-purple/10 text-cyber-blue text-xs rounded-full font-mono">Streamlit App</span>
+                                    <span class="px-2.5 py-0.5 bg-cyber-purple/10 text-cyber-blue text-xs rounded-full font-mono">Data Science</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Tic Tac Toe Interactive Game Project (ADDED) -->
+                    <div class="glass p-6 rounded-2xl project-card border border-gray-800 hover:border-cyber-blue/30 transition" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-xl font-bold text-white">Interactive Tic Tac Toe</h3>
+                                    <span class="text-xs text-gray-500 font-mono">#0003</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mt-2.5 leading-relaxed">A modern implementation of the classic game featuring smart draw detection, color-coded visual feedback tracking, and a locked grid structure optimized for fluid cross-platform gaming workflows.</p>
+                                <a href="https://mantu1316-code.github.io/Tic-Tac-Toe/" target="_blank" class="text-cyber-blue text-xs hover:underline mt-3 inline-block font-mono">
+                                    <i class="fas fa-external-link-alt mr-1"></i>https://mantu1316-code.github.io/Tic-Tac-Toe/
+                                </a>
+                                <div class="flex flex-wrap gap-1.5 mt-4">
+                                    <span class="px-2.5 py-0.5 bg-cyber-blue/10 text-cyber-blue text-xs rounded-full font-mono">HTML5</span>
+                                    <span class="px-2.5 py-0.5 bg-cyber-blue/10 text-cyber-blue text-xs rounded-full font-mono">CSS Grid</span>
+                                    <span class="px-2.5 py-0.5 bg-cyber-blue/10 text-cyber-blue text-xs rounded-full font-mono">JavaScript State</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Logoipsum Corporate Template Project (ADDED) -->
+                    <div class="glass p-6 rounded-2xl project-card border border-gray-800 hover:border-cyber-green/30 transition" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-xl font-bold text-white">Logoipsum Corporate template</h3>
+                                    <span class="text-xs text-gray-500 font-mono">#0004</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mt-2.5 leading-relaxed">A premium, highly-optimized multi-page agency website template refactored from static positioning layouts into dynamic CSS flexbox/grid engines for flawless device integration.</p>
+                                <a href="https://mantu1316-code.github.io/Logoipsum-template/" target="_blank" class="text-cyber-blue text-xs hover:underline mt-3 inline-block font-mono">
+                                    <i class="fas fa-external-link-alt mr-1"></i>https://mantu1316-code.github.io/Logoipsum-template/
+                                </a>
+                                <div class="flex flex-wrap gap-1.5 mt-4">
+                                    <span class="px-2.5 py-0.5 bg-cyber-green/10 text-cyber-green text-xs rounded-full font-mono">Multi-Page UI</span>
+                                    <span class="px-2.5 py-0.5 bg-cyber-green/10 text-cyber-green text-xs rounded-full font-mono">Flexbox Layout</span>
+                                    <span class="px-2.5 py-0.5 bg-cyber-green/10 text-cyber-green text-xs rounded-full font-mono">Responsive CSS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="py-3 text-center text-gray-500 text-xs border-t border-gray-800">
+            <p class="font-mono">Designed & Built by <span class="text-cyber-green">Mantu Kumar</span> &copy; 2026</p>
+            <p class="mt-0.5 text-[10px]">IEEE Member No: 102399555</p>
+        </footer>
+    </div>
+
+    <!-- ==================== TERMINAL MODAL ==================== -->
+    <div id="terminal-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
+        <div class="terminal-window w-full max-w-2xl bg-gray-900 rounded-lg shadow-2xl border border-gray-700 overflow-hidden relative">
+            <div class="bg-gray-800 px-4 py-3 flex items-center justify-between">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                </div>
+                <span class="text-xs text-gray-400 font-mono">mantu@portfolio:~</span>
+                <button class="terminal-close-btn" onclick="toggleTerminal()" title="Close Terminal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-4 font-mono text-sm">
+                <div id="terminal-output" class="terminal-body text-green-400 mb-2">
+                    <p>Welcome to Mantu's Interactive Terminal v1.0</p>
+                    <p>Type <span class="text-cyber-green">'help'</span> to see available commands.</p>
+                    <br>
+                </div>
+                <div class="flex items-center text-gray-300">
+                    <span class="text-cyber-green mr-2">mantu@web:~$</span>
+                    <input type="text" id="terminal-input" class="bg-transparent outline-none flex-1 text-white" autofocus onkeydown="handleTerminalInput(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 100 });
+
+        // ==================== MOBILE MENU ====================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // ==================== TERMINAL ====================
+        function toggleTerminal() {
+            const modal = document.getElementById('terminal-modal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+            if (!modal.classList.contains('hidden')) {
+                setTimeout(() => document.getElementById('terminal-input').focus(), 100);
+            }
+        }
+
+        function handleTerminalInput(e) {
+            if (e.key === 'Enter') {
+                const input = e.target.value.trim().toLowerCase();
+                const output = document.getElementById('terminal-output');
+                let response = '';
+
+                switch(input) {
+                    case 'help':
+                        response = `Available commands: <br>
+                        &nbsp;&nbsp;<span class="text-cyber-green">about</span>      - Know more about me <br>
+                        &nbsp;&nbsp;<span class="text-cyber-green">education</span>  - View my academics & certs <br>
+                        &nbsp;&nbsp;<span class="text-cyber-green">skills</span>     - View my tech stack <br>
+                        &nbsp;&nbsp;<span class="text-cyber-green">contact</span>    - Get my contact details <br>
+                        &nbsp;&nbsp;<span class="text-cyber-green">ieee</span>       - My IEEE details <br>
+                        &nbsp;&nbsp;<span class="text-cyber-green">iit</span>        - My IIT Mandi workshop details <br>
+                        &nbsp;&nbsp;<span class="text-cyber-green">clear</span>      - Clear terminal <br>
+                        &nbsp;&nbsp;<span class="text-cyber-green">exit</span>       - Close terminal`;
+                        break;
+                    case 'about':
+                        response = `I am Mantu Kumar, a B.Tech CSE student (6th Sem) at GNSU, Sasaram. <br>Passionate about Information Security, Threat Analysis, and Network Defense.`;
+                        break;
+                    case 'education':
+                        response = `B.Tech (CSE) @ GNSU (2023-2027) <br>12th: Bihar Board (69.2%) <br>10th: CBSE Board (61.8%) <br><br>Certs: <br>• IIT Mandi Workshop (Sep 2024)<br>• IEEE SDP (Apr 2026)<br>• IBM: Front End (Apr 2025)<br>• IBM: Full Stack (May 2026)<br>• IBM: Gen AI (Jun 2026)<br>• IBM: Prompt Eng (Jun 2026)`;
+                        break;
+                    case 'skills':
+                        response = `Programming: C, C++, Python, Java <br>Cybersec: CIA Triad, Attack Vectors <br>Network: OSI, DNS, IP, Firewalls <br>Web: HTML, CSS, JS, React, Node.js`;
+                        break;
+                    case 'contact':
+                        response = `Email: oss13161316@gmail.com <br>Phone: +91-9128749516`;
+                        break;
+                    case 'ieee':
+                        response = `Active Student Member, IEEE Kolkata Section. <br>Membership No: 102399555 <br>Completed IEEE Education Week-2026 SDP (11-17 April, 2026).`;
+                        break;
+                    case 'iit':
+                        response = `Attended "Idea To Business Plan" workshop by IIT Mandi Catalyst. <br>Date: 16-17 September, 2024 <br>Venue: GNSU, Sasaram <br>Two-day hands-on workshop on Entrepreneurship & Business Planning.`;
+                        break;
+                    case 'clear':
+                        output.innerHTML = ''; e.target.value = ''; return;
+                    case 'exit': case 'quit':
+                        toggleTerminal(); e.target.value = ''; return;
+                    default:
+                        response = `Command not found: ${input}. Type <span class="text-cyber-green">'help'</span> for options.`;
+                }
+                output.innerHTML += `<p class="text-gray-400">mantu@web:~$ ${input}</p><p class="mb-2">${response}</p>`;
+                e.target.value = '';
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
